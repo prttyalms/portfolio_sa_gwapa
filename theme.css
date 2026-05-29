@@ -1,0 +1,152 @@
+import { useEffect, useRef, useState } from 'react';
+import { Github } from 'lucide-react';
+
+import PocketPulseLogo from '../../imports/PocketpulseLogo.png';
+import ArkaLogo from '../../imports/Arkalogo.png';
+
+
+export default function Projects() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const projects = [
+    {
+      logo: PocketPulseLogo,
+      logoPosition: '25% 50%',
+      emoji: '💰',
+      title: 'PocketPulse',
+      description: 'Mobile Daily Expense Manager for tracking personal finances with an intuitive interface',
+      techStack: ['HTML', 'CSS', 'JavaScript', 'MySQL'],
+      github: 'https://github.com/prttyalms'
+    },
+    {
+      logo: ArkaLogo,
+      logoPosition: '75% 50%',
+      emoji: '💼',
+      title: 'ARKA',
+      description: 'Comprehensive Workforce and Payroll Management System for streamlined employee management',
+      techStack: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+      github: 'https://github.com/prttyalms'
+    },
+    {
+      emoji: '🛒',
+      logo: null,
+      title: 'Cashier Application',
+      description: 'Point-of-sale system with inventory management and transaction processing capabilities',
+      techStack: ['HTML', 'CSS', 'JavaScript', 'MySQL'],
+      github: 'https://github.com/prttyalms'
+    },
+    {
+      emoji: '💵',
+      logo: null,
+      title: 'Employee Salary System',
+      description: 'Automated payroll calculation and management system with detailed reporting features',
+      techStack: ['HTML', 'CSS', 'JavaScript', 'MySQL'],
+      github: 'https://github.com/prttyalms'
+    },
+    {
+      emoji: '✨',
+      logo: null,
+      title: 'Mini Web Projects',
+      description: 'Collection of creative web apps and design concepts showcasing various frontend techniques',
+      techStack: ['HTML', 'CSS', 'JavaScript'],
+      github: 'https://github.com/prttyalms'
+    }
+  ];
+
+  return (
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="py-20 px-4 relative"
+    >
+      <div className="max-w-6xl mx-auto">
+        <div
+          className={`text-center mb-16 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <h2 className="text-4xl md:text-5xl mb-4 bg-gradient-to-r from-[#F4A7B9] to-[#E8799A] bg-clip-text text-transparent">
+            My Projects
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#F4A7B9] to-[#E8799A] mx-auto rounded-full"></div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className={`group bg-white/55 backdrop-blur-md rounded-3xl p-8 shadow-xl shadow-[#F4A7B9]/20 border border-white/60 hover:shadow-2xl hover:shadow-[#F4A7B9]/30 hover:-translate-y-2 transition-all duration-300 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${index * 100 + 200}ms` }}
+            >
+              {project.logo ? (
+                <div className="mb-4 flex items-center justify-center h-28 overflow-hidden">
+                  <img
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    className="h-24 w-auto object-contain"
+                    style={{
+                      objectPosition: project.logoPosition || 'center'
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="text-5xl mb-4">{project.emoji}</div>
+              )}
+
+              <h3 className="text-2xl mb-3 text-[#5C3D4E] group-hover:text-[#F4A7B9] transition-colors">
+                {project.title}
+              </h3>
+
+              <p className="text-[#5C3D4E] mb-4 leading-relaxed">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.techStack.map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="px-3 py-1 bg-gradient-to-r from-[#FADADD] to-[#FCE4EC] text-[#5C3D4E] rounded-full text-sm border border-[#F4A7B9]/30"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full px-4 py-3 bg-gradient-to-r from-[#F4A7B9] to-[#E8799A] text-white rounded-full shadow-md shadow-[#F4A7B9]/30 hover:shadow-lg hover:shadow-[#F4A7B9]/45 hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <Github className="w-4 h-4" />
+                  View on GitHub
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

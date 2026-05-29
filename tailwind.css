@@ -1,0 +1,41 @@
+import { Facebook, Github, Mail, Heart } from 'lucide-react';
+
+export default function Footer() {
+  const socialLinks = [
+    { icon: <Facebook className="w-5 h-5" />, link: 'https://www.facebook.com/share/1LoWcbaDK8/' },
+    { icon: <Github className="w-5 h-5" />, link: 'https://github.com/prttyalms' },
+    { icon: <Mail className="w-5 h-5" />, link: 'mailto:andaja0318@gmail.com' }
+  ];
+
+  return (
+    <footer className="relative py-12 px-4 bg-gradient-to-r from-[#FADADD] via-[#FCE4EC] to-[#FFF0F5] border-t border-[#F4A7B9]/20">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex items-center gap-4">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-white/60 backdrop-blur-sm rounded-full text-[#5C3D4E] hover:bg-gradient-to-r hover:from-[#F4A7B9] hover:to-[#E8799A] hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-[#F4A7B9]/30 transition-all duration-300"
+              >
+                {social.icon}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 text-[#5C3D4E]">
+            <span>Made with</span>
+            <Heart className="w-4 h-4 text-[#F4A7B9] fill-current animate-pulse" />
+            <span>by Almirah N. Andajao</span>
+          </div>
+
+          <p className="text-[#5C3D4E] text-sm">
+            © 2026 All rights reserved
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
